@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
+import { selectNotifiCount } from "./store/counter/counter.selector";
+import { increment, reset } from "./store/counter/counter.slice";
 
 function App() {
-	const [count, setCount] = useState(0);
+
+    const count = useSelector(selectNotifiCount)
+    const dispatch = useDispatch();
 
 	return (
 		<>
 			<h1>Count</h1>
 			{count}
 			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
+				<button onClick={() => {
+                    dispatch(increment())
+                } }>
 					Increment
 				</button>
-				<button onClick={() => setCount(0)}>Reset</button>
+				<button onClick={() =>{
+                    dispatch(reset())
+                } }>Reset</button>
 			</div>
 		</>
 	);
